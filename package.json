@@ -4,7 +4,7 @@
   "description": "EloGrind API for payment processing",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "node_modules/.bin/tsc --skipLibCheck",
     "start": "node dist/main.js",
     "dev": "tsx watch src/main.ts",
     "lint": "biome check .",
@@ -21,6 +21,7 @@
     "@types/hpp": "^0.2.5",
     "@types/node": "^20.11.20",
     "cors": "^2.8.5",
+    "typescript": "^5.3.3",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.5",
