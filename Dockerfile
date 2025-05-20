@@ -1,29 +1,25 @@
-FROM node:18-alpine AS builder
+FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package.json package-lock.json ./
-RUN npm ci
+# Copiar arquivos de configuração
+COPY package*.json ./
+COPY tsconfig.json ./
+COPY prisma ./prisma/
 
-# Copy source code and build
-COPY . .
+# Instalar dependências e TypeScript
+RUN npm install
+RUN npm install -g typescript
+
+# Gerar cliente Prisma
 RUN npm run db:generate
-RUN npm run build
 
-# Production image
-FROM node:18-alpine AS runner
+# Copiar código fonte
+COPY src ./src/
 
-WORKDIR /app
+# Compilar TypeScript
+RUN tsc --skipLibCheck
 
-# Set to production environment
+# Configurar variáveis de ambiente e iniciar
 ENV NODE_ENV=production
-
-# Copy necessary files from builder
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/prisma ./prisma
-
-# Run database migrations and start the application
 CMD npm run db:migrate && npm start
