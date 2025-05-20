@@ -1,3 +1,3 @@
-#!/bin/bash
-# Instala as definições de tipos necessárias
-npm install --save-dev @types/node @types/express @types/cors @types/hpp
+echo '#!/bin/bash
+npm install --save-dev @types/node @types/express @types/cors @types/hpp' > fix-types.sh
+chmod +x fix-types.sh

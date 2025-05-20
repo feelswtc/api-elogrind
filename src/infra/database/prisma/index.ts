@@ -24,13 +24,6 @@ const prismaClientSingleton = () => {
       process.exit(1)
     })
 
-  // Add connection handling for Neon's pooled connections
-  prisma.$on("query", (e) => {
-    if (env.NODE_ENV === "development") {
-      Logger.info(`Query: ${e.query}`)
-    }
-  })
-
   return prisma
 }
 

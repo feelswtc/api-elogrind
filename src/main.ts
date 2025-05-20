@@ -10,7 +10,7 @@ import { MercadoPagoConfig } from "mercadopago"
 import { prisma } from "@/infra/database/prisma"
 import { env } from "@/infra/env"
 import Logger from "@/shared/utils/logger"
-import process from "node:process"
+import process from "process"
 
 async function bootstrap() {
   try {
